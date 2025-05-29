@@ -42,11 +42,10 @@ jobs:
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "actions@github.com"
           
-          # Configure git to use SSH
-          git remote set-url origin git@github.com:SaeedZhiany/cv.git
+          # Configure git to use HTTPS with token
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/SaeedZhiany/cv.git
           
           # Deploy using gh-pages
-          GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no" yarn deploy
+          yarn deploy
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no" 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
