@@ -1,7 +1,6 @@
 import './App.css'
 import { ThemeProvider } from './ThemeContext';
 import { ThemeToggle } from './ThemeToggle';
-import { useRef } from 'react';
 import { usePDF } from 'react-to-pdf';
 import PDFResume from './PDFResume';
 
