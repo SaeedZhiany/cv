@@ -3,6 +3,8 @@ import { ThemeProvider } from './ThemeContext';
 import { ThemeToggle } from './ThemeToggle';
 import PDFResume from './PDFResume';
 import { usePDF } from 'react-to-pdf';
+import cvData from './cv-data.json';
+import { FaLinkedin, FaGithub, FaStackOverflow, FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from 'react-icons/fa';
 
 function App() {
   const { toPDF, targetRef } = usePDF({ filename: 'resume.pdf' });
@@ -50,17 +52,31 @@ function App() {
         <div className="container mx-auto px-4 py-8 max-w-4xl">
           <header className="text-center mb-12">
             <h1 className="text-4xl font-bold mb-2 text-gray-900 dark:text-white">
-              Your Name
+              {cvData.name}
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-6">
-              Software Development Team Lead
+              {cvData.headline}
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-gray-600 dark:text-gray-400">
-              <p className="flex items-center gap-2">📍 Location</p>
-              <p className="flex items-center gap-2">📧 Email</p>
-              <p className="flex items-center gap-2">📱 Phone</p>
-              <p className="flex items-center gap-2">🔗 LinkedIn</p>
-              <p className="flex items-center gap-2">💻 GitHub</p>
+              <p className="flex items-center gap-2"><FaMapMarkerAlt className="w-4 h-4" /> {cvData.location}</p>
+              <p className="flex items-center gap-2"><FaEnvelope className="w-4 h-4" /> {cvData.email}</p>
+              {cvData.phone && <p className="flex items-center gap-2"><FaPhoneAlt className="w-4 h-4" /> {cvData.phone}</p>}
+              <a href={cvData.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 group">
+                <FaLinkedin className="w-5 h-5 text-gray-500 group-hover:text-[#0077B5] transition-colors" />
+                <span className="hidden sm:inline">LinkedIn</span>
+              </a>
+              {cvData.github && (
+                <a href={cvData.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 group">
+                  <FaGithub className="w-5 h-5 text-gray-500 group-hover:text-[#181717] transition-colors" />
+                  <span className="hidden sm:inline">GitHub</span>
+                </a>
+              )}
+              {cvData.stackoverflow && (
+                <a href={cvData.stackoverflow} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 group">
+                  <FaStackOverflow className="w-5 h-5 text-gray-500 group-hover:text-[#F48024] transition-colors" />
+                  <span className="hidden sm:inline">Stack Overflow</span>
+                </a>
+              )}
             </div>
           </header>
 
@@ -68,62 +84,55 @@ function App() {
             <section className="card">
               <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Professional Summary</h2>
               <p className="text-gray-700 dark:text-gray-300">
-                Experienced software developer with 10 years of expertise in software development
-                and 1 year of team leadership experience. Proven track record of delivering
-                high-quality solutions and leading development teams to success.
+                {cvData.summary}
               </p>
             </section>
 
             <section className="card">
               <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Work Experience</h2>
-              <div className="mb-6">
-                <div className="flex justify-between items-baseline mb-2">
-                  <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200">Team Lead</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">2023 - Present</p>
+              {cvData.experience.map((exp, idx) => (
+                <div className="mb-6" key={idx}>
+                  <div className="flex justify-between items-baseline mb-2">
+                    <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200">{exp.title} @ {exp.company}</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">{exp.start} - {exp.end}</p>
+                  </div>
+                  <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
+                    <li>{exp.description}</li>
+                  </ul>
                 </div>
-                <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
-                  <li>Lead and mentor development team</li>
-                  <li>Drive technical decisions and architecture</li>
-                  <li>Manage project timelines and deliverables</li>
-                </ul>
-              </div>
+              ))}
             </section>
 
             <section className="card">
               <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Skills</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">Programming Languages</h3>
-                  <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
-                    <li>TypeScript/JavaScript</li>
-                    <li>Python</li>
-                    <li>Java</li>
-                    <li>SQL</li>
-                  </ul>
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">Frameworks & Tools</h3>
-                  <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
-                    <li>React</li>
-                    <li>Node.js</li>
-                    <li>Docker</li>
-                    <li>AWS</li>
-                  </ul>
-                </div>
+                {cvData.skills.map((skill, idx) => (
+                  <div key={idx}>
+                    <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">{skill.category}</h3>
+                    <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
+                      {skill.items.map((item, i) => (
+                        <li key={i}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
               </div>
             </section>
 
             <section className="card">
               <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Education</h2>
-              <div>
-                <div className="flex justify-between items-baseline mb-2">
-                  <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200">Master of Computer Science</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">2015 - 2017</p>
+              {cvData.education.map((edu, idx) => (
+                <div key={idx}>
+                  <div className="flex justify-between items-baseline mb-2">
+                    <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200">{edu.degree} in {edu.field}</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">{edu.start} - {edu.end}</p>
+                  </div>
+                  <p className="text-gray-700 dark:text-gray-300">
+                    {edu.school}
+                  </p>
+                  {edu.description && <p className="text-gray-700 dark:text-gray-300 mt-1">{edu.description}</p>}
                 </div>
-                <p className="text-gray-700 dark:text-gray-300">
-                  University Name, Specialization in Software Engineering
-                </p>
-              </div>
+              ))}
             </section>
           </main>
         </div>

@@ -1,0 +1,41 @@
+{
+  "name": "Saeed Zhiany",
+  "headline": "Software Engineering Manager",
+  "location": "Tehran, IR",
+  "email": "saeedzhiany@gmail.com",
+  "phone": "",
+  "linkedin": "https://www.linkedin.com/in/saeedzhiany",
+  "github": "https://github.com/SaeedZhiany",
+  "stackoverflow": "https://stackoverflow.com/users/6340959/saeed-zhiany",
+  "summary": "Professional summary goes here.",
+  "experience": [
+    {
+      "title": "Job Title",
+      "company": "Company Name",
+      "start": "2020-01",
+      "end": "2022-12",
+      "description": "Job description goes here.",
+      "location": "Location"
+    }
+  ],
+  "education": [
+    {
+      "school": "School Name",
+      "degree": "Degree",
+      "field": "Field of Study",
+      "start": "2015",
+      "end": "2017",
+      "description": "Education description goes here."
+    }
+  ],
+  "skills": [
+    {
+      "category": "Programming Languages",
+      "items": ["TypeScript/JavaScript", "Python", "Java", "SQL"]
+    },
+    {
+      "category": "Frameworks & Tools",
+      "items": ["React", "Node.js", "Docker", "AWS"]
+    }
+  ]
+} 
