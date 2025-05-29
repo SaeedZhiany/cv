@@ -39,21 +39,6 @@ jobs:
         run: |
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "actions@github.com"
-          
-          # Remove everything except .git and dist
-          git rm -rf .
-          git checkout .gitignore
-          
-          # Move dist contents to root
-          mv dist/* .
-          mv dist/.* . 2>/dev/null || true
-          rmdir dist
-          
-          # Add and commit everything
-          git add .
-          git commit -m "Deploy built files to root"
-          
-          # Push changes
-          git push origin main
+          yarn deploy
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
