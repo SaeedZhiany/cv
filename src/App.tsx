@@ -13,6 +13,7 @@ function App() {
   return (
     <ThemeProvider>
       <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+        {/* Fixed header with theme toggle and download button */}
         <div className="fixed top-4 right-4 flex gap-2 z-50">
           <ThemeToggle />
           <button
@@ -21,7 +22,8 @@ function App() {
                      bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 
                      hover:bg-gray-100 dark:hover:bg-gray-700 
                      transition-all duration-300 ease-in-out 
-                     focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark"
+                     focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark
+                     flex items-center gap-2"
             aria-label="Download PDF"
           >
             <svg
@@ -38,6 +40,7 @@ function App() {
               <polyline points="7 10 12 15 17 10" />
               <line x1="12" y1="15" x2="12" y2="3" />
             </svg>
+            <span className="hidden sm:inline">Download PDF</span>
           </button>
         </div>
 
@@ -55,18 +58,18 @@ function App() {
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-6">
               Software Development Team Lead
             </p>
-            <div className="contact-info justify-center">
-              <p>📍 Location</p>
-              <p>📧 Email</p>
-              <p>📱 Phone</p>
-              <p>🔗 LinkedIn</p>
-              <p>💻 GitHub</p>
+            <div className="flex flex-wrap justify-center gap-4 text-gray-600 dark:text-gray-400">
+              <p className="flex items-center gap-2">📍 Location</p>
+              <p className="flex items-center gap-2">📧 Email</p>
+              <p className="flex items-center gap-2">📱 Phone</p>
+              <p className="flex items-center gap-2">🔗 LinkedIn</p>
+              <p className="flex items-center gap-2">💻 GitHub</p>
             </div>
           </header>
 
           <main className="space-y-8">
             <section className="card">
-              <h2>Professional Summary</h2>
+              <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Professional Summary</h2>
               <p className="text-gray-700 dark:text-gray-300">
                 Experienced software developer with 10 years of expertise in software development
                 and 1 year of team leadership experience. Proven track record of delivering
@@ -75,10 +78,12 @@ function App() {
             </section>
 
             <section className="card">
-              <h2>Work Experience</h2>
-              <div className="experience-item">
-                <h3>Team Lead</h3>
-                <p className="date">2023 - Present</p>
+              <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Work Experience</h2>
+              <div className="mb-6">
+                <div className="flex justify-between items-baseline mb-2">
+                  <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200">Team Lead</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">2023 - Present</p>
+                </div>
                 <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
                   <li>Lead and mentor development team</li>
                   <li>Drive technical decisions and architecture</li>
@@ -88,20 +93,20 @@ function App() {
             </section>
 
             <section className="card">
-              <h2>Skills</h2>
-              <div className="skills-grid">
-                <div className="skill-category">
-                  <h3>Programming Languages</h3>
-                  <ul>
+              <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Skills</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">Programming Languages</h3>
+                  <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
                     <li>TypeScript/JavaScript</li>
                     <li>Python</li>
                     <li>Java</li>
                     <li>SQL</li>
                   </ul>
                 </div>
-                <div className="skill-category">
-                  <h3>Frameworks & Tools</h3>
-                  <ul>
+                <div>
+                  <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">Frameworks & Tools</h3>
+                  <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
                     <li>React</li>
                     <li>Node.js</li>
                     <li>Docker</li>
@@ -112,10 +117,12 @@ function App() {
             </section>
 
             <section className="card">
-              <h2>Education</h2>
-              <div className="experience-item">
-                <h3>Master of Computer Science</h3>
-                <p className="date">2015 - 2017</p>
+              <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Education</h2>
+              <div>
+                <div className="flex justify-between items-baseline mb-2">
+                  <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200">Master of Computer Science</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">2015 - 2017</p>
+                </div>
                 <p className="text-gray-700 dark:text-gray-300">
                   University Name, Specialization in Software Engineering
                 </p>
