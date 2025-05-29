@@ -63,7 +63,7 @@ const PDFResume = forwardRef<HTMLDivElement, { cvData: CVData; lang: 'en' | 'fa'
     >
       {/* Header with improved spacing and layout */}
       <header className={`mb-8 border-b-2 border-gray-200 pb-6 ${isRTL ? 'text-right' : 'text-left'}`}>
-        <h1 className="text-4xl font-bold text-gray-900 mb-3 tracking-tight">{cvData.name}</h1>
+        <h1 className="text-4xl font-bold text-gray-900 mb-3">{cvData.name}</h1>
         <p className="text-2xl text-gray-700 mb-6">{cvData.headline}</p>
         
         {/* Contact information in a grid layout */}
