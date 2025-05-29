@@ -1,0 +1,41 @@
+{
+  "name": "سعید ژیانی",
+  "headline": "مدیر مهندسان نرم‌افزار",
+  "location": "تهران, ایران",
+  "email": "saeedzhiany@gmail.com",
+  "phone": "۰۹۱۲۱۲۳۴۵۶۷",
+  "linkedin": "https://www.linkedin.com/in/saeedzhiany",
+  "github": "https://github.com/SaeedZhiany",
+  "stackoverflow": "https://stackoverflow.com/users/6340959/saeed-zhiany",
+  "summary": "خلاصه‌ای از سوابق حرفه‌ای شما اینجا قرار می‌گیرد.",
+  "experience": [
+    {
+      "title": "عنوان شغلی",
+      "company": "نام شرکت",
+      "start": "۲۰۲۰-۰۱",
+      "end": "۲۰۲۲-۱۲",
+      "description": "توضیحات شغلی اینجا قرار می‌گیرد.",
+      "location": "مکان"
+    }
+  ],
+  "education": [
+    {
+      "school": "نام دانشگاه",
+      "degree": "مدرک تحصیلی",
+      "field": "رشته تحصیلی",
+      "start": "۲۰۱۵",
+      "end": "۲۰۱۷",
+      "description": "توضیحات مربوط به تحصیلات اینجا قرار می‌گیرد."
+    }
+  ],
+  "skills": [
+    {
+      "category": "زبان‌های برنامه‌نویسی",
+      "items": ["جاوااسکریپت/تایپ‌اسکریپت", "پایتون", "جاوا", "SQL"]
+    },
+    {
+      "category": "فریم‌ورک‌ها و ابزارها",
+      "items": ["React", "Node.js", "Docker", "AWS"]
+    }
+  ]
+} 
