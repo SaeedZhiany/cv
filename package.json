@@ -8,7 +8,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
+    "preview": "yarn predeploy && vite preview",
     "predeploy": "yarn build",
     "deploy": "gh-pages -d dist --dotfiles --message 'Deploy to GitHub Pages'"
   },

@@ -57,8 +57,8 @@ function App() {
               <polyline points="7 10 12 15 17 10" />
               <line x1="12" y1="15" x2="12" y2="3" />
             </svg>
-            <span className="hidden sm:inline">
-              {isGeneratingPDF ? 'Generating...' : 'Download PDF'}
+            <span className="hidden sm:inline min-w-[115px] text-left">
+              {isGeneratingPDF ? 'Generating...' : 'Download'}
             </span>
           </button>
         </div>

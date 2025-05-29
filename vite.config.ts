@@ -12,7 +12,7 @@ export default defineConfig({
         chunkFileNames: `assets/[name].[hash].js`,
         assetFileNames: `assets/[name].[hash].[ext]`,
         manualChunks: {
-          'vendor-react': ['react', 'react-dom'],
+          'vendor': ['react', 'react-dom'],
           'pdf': ['react-to-pdf'],
           'theme': ['./src/ThemeContext', './src/ThemeToggle'],
           'pdf-resume': ['./src/PDFResume']
