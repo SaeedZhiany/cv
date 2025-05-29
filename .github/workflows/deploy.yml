@@ -35,7 +35,13 @@ jobs:
         run: yarn install
 
       - name: Build
-        run: yarn build
+        run: |
+          # Add timestamp to index.html for cache busting
+          TIMESTAMP=$(date +%s)
+          yarn build
+          sed -i "s/<\/head>/<meta name='timestamp' content='$TIMESTAMP'><\/head>/" dist/index.html
+          # Add cache control headers
+          echo '/*\n  Cache-Control: no-cache, no-store, must-revalidate\n  Pragma: no-cache\n  Expires: 0' > dist/_headers
 
       - name: Deploy
         run: |
@@ -45,7 +51,7 @@ jobs:
           # Configure git to use HTTPS with token
           git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/SaeedZhiany/cv.git
           
-          # Deploy using gh-pages
+          # Deploy using gh-pages with cache control
           yarn deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
