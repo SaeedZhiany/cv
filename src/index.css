@@ -11,23 +11,39 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* Light theme (default) */
+  --background-color: #ffffff;
+  --text-color: #333333;
+  --primary-color: #646cff;
+  --secondary-color: #535bf2;
+  --border-color: #e2e8f0;
+  --card-background: #f8fafc;
+  --hover-color: #f1f5f9;
+  --shadow-color: rgba(0, 0, 0, 0.1);
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+[data-theme='dark'] {
+  --background-color: #1a1a1a;
+  --text-color: #e2e8f0;
+  --primary-color: #818cf8;
+  --secondary-color: #6366f1;
+  --border-color: #2d3748;
+  --card-background: #2d3748;
+  --hover-color: #4a5568;
+  --shadow-color: rgba(0, 0, 0, 0.3);
 }
 
+/* Apply theme variables */
 body {
   margin: 0;
   display: flex;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 h1 {
@@ -65,4 +81,47 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+/* Theme toggle button styles */
+.theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.5rem;
+  border-radius: 50%;
+  border: 2px solid var(--border-color);
+  background: var(--card-background);
+  color: var(--text-color);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.theme-toggle:hover {
+  background: var(--hover-color);
+  transform: scale(1.1);
+}
+
+.theme-toggle svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Update existing component styles to use theme variables */
+.card {
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+a {
+  color: var(--primary-color);
+}
+
+a:hover {
+  color: var(--secondary-color);
 }
