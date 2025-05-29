@@ -22,8 +22,13 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     // Update localStorage when theme changes
     localStorage.setItem('theme', theme);
-    // Update document class for CSS variables
-    document.documentElement.setAttribute('data-theme', theme);
+    
+    // Update document class for Tailwind dark mode
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
   }, [theme]);
 
   const toggleTheme = () => {
