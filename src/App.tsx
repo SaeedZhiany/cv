@@ -1,30 +1,11 @@
 import './App.css'
 import { ThemeProvider } from './ThemeContext';
 import { ThemeToggle } from './ThemeToggle';
-import { useState, lazy, Suspense } from 'react';
-
-// Dynamically import PDF component
-const PDFResume = lazy(() => import('./PDFResume'));
+import PDFResume from './PDFResume';
+import { usePDF } from 'react-to-pdf';
 
 function App() {
-  const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
-
-  const handleDownloadPDF = async () => {
-    setIsGeneratingPDF(true);
-    // Small delay to ensure the PDF component is rendered
-    setTimeout(async () => {
-      try {
-        const { usePDF } = await import('react-to-pdf');
-        const { toPDF } = usePDF({
-          filename: 'resume.pdf',
-          page: { format: 'a4', orientation: 'portrait' },
-        });
-        await toPDF();
-      } finally {
-        setIsGeneratingPDF(false);
-      }
-    }, 100);
-  };
+  const { toPDF, targetRef } = usePDF({ filename: 'resume.pdf' });
 
   return (
     <ThemeProvider>
@@ -33,7 +14,7 @@ function App() {
         <div className="fixed top-4 right-4 flex gap-2 z-50">
           <ThemeToggle />
           <button
-            onClick={handleDownloadPDF}
+            onClick={() => toPDF()}
             className="p-2 rounded-full border-2 border-gray-200 dark:border-gray-700 
                      bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 
                      hover:bg-gray-100 dark:hover:bg-gray-700 
@@ -41,7 +22,6 @@ function App() {
                      focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark
                      flex items-center gap-2"
             aria-label="Download PDF"
-            disabled={isGeneratingPDF}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -57,20 +37,14 @@ function App() {
               <polyline points="7 10 12 15 17 10" />
               <line x1="12" y1="15" x2="12" y2="3" />
             </svg>
-            <span className="hidden sm:inline min-w-[115px] text-left">
-              {isGeneratingPDF ? 'Generating...' : 'Download'}
-            </span>
+            <span className="hidden sm:inline min-w-[115px] text-left">Download</span>
           </button>
         </div>
 
-        {/* PDF version - only visible during generation */}
-        {isGeneratingPDF && (
-          <div className="fixed top-0 left-0 w-full h-full z-50 bg-white">
-            <Suspense fallback={<div className="flex items-center justify-center h-full">Loading PDF...</div>}>
-              <PDFResume />
-            </Suspense>
-          </div>
-        )}
+        {/* Hidden PDF version for download (off-screen, not display:none) */}
+        <div style={{ position: 'absolute', left: '-9999px', top: 0 }}>
+          <PDFResume ref={targetRef} />
+        </div>
 
         {/* Visible web version */}
         <div className="container mx-auto px-4 py-8 max-w-4xl">

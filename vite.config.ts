@@ -10,13 +10,7 @@ export default defineConfig({
       output: {
         entryFileNames: `assets/[name].[hash].js`,
         chunkFileNames: `assets/[name].[hash].js`,
-        assetFileNames: `assets/[name].[hash].[ext]`,
-        manualChunks: {
-          'vendor': ['react', 'react-dom'],
-          'pdf': ['react-to-pdf'],
-          'theme': ['./src/ThemeContext', './src/ThemeToggle'],
-          'pdf-resume': ['./src/PDFResume']
-        }
+        assetFileNames: `assets/[name].[hash].[ext]`
       }
     },
     chunkSizeWarningLimit: 600
