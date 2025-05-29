@@ -38,71 +38,119 @@ interface CVData {
 
 const PDFResume = forwardRef<HTMLDivElement, { cvData: CVData; lang: 'en' | 'fa' }>((props, ref) => {
   const { cvData, lang } = props;
+  const isRTL = lang === 'fa';
+
   return (
-    <div ref={ref} className="p-8 max-w-[210mm] mx-auto bg-white" dir={lang === 'fa' ? 'rtl' : 'ltr'}>
-      {/* Header */}
-      <header className="text-center mb-8 border-b border-gray-200 pb-6">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">{cvData.name}</h1>
-        <p className="text-xl text-gray-600 mb-4">{cvData.headline}</p>
-        <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-600">
-          <span className="flex items-center gap-1"><FaMapMarkerAlt className="w-4 h-4 text-gray-600" /> {cvData.location}</span>
-          <span className="flex items-center gap-1"><FaEnvelope className="w-4 h-4 text-gray-600" /> {cvData.email}</span>
-          {cvData.phone && <span className="flex items-center gap-1"><FaPhoneAlt className="w-4 h-4 text-gray-600" /> {cvData.phone}</span>}
-          <span className="flex items-center gap-1">
-            <FaLinkedin className="w-5 h-5 text-gray-600" />
+    <div 
+      ref={ref} 
+      className={`
+        w-[794px] min-h-[1122px] bg-white
+        ${isRTL ? 'font-vazirmatn text-right' : ''}
+      `} 
+      dir={isRTL ? 'rtl' : 'ltr'}
+      style={{
+        // Ensure proper page margins and breaks
+        pageBreakAfter: 'always',
+        pageBreakInside: 'avoid',
+        breakInside: 'avoid',
+        // Ensure proper text rendering for Persian
+        textAlign: isRTL ? 'right' : 'left',
+        fontFeatureSettings: isRTL ? '"ss01"' : 'normal',
+        // Use full width
+        margin: 0,
+        padding: '76px',
+      }}
+    >
+      {/* Header with improved spacing and layout */}
+      <header className={`mb-8 border-b-2 border-gray-200 pb-6 ${isRTL ? 'text-right' : 'text-left'}`}>
+        <h1 className="text-4xl font-bold text-gray-900 mb-3 tracking-tight">{cvData.name}</h1>
+        <p className="text-2xl text-gray-700 mb-6">{cvData.headline}</p>
+        
+        {/* Contact information in a grid layout */}
+        <div className={`grid ${isRTL ? 'grid-cols-2 gap-x-4' : 'grid-cols-2 gap-x-8'} gap-y-2 text-sm text-gray-600`}>
+          <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <FaMapMarkerAlt className="w-4 h-4 text-gray-500 flex-shrink-0" />
+            <span>{cvData.location}</span>
+          </div>
+          <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <FaEnvelope className="w-4 h-4 text-gray-500 flex-shrink-0" />
+            <span>{cvData.email}</span>
+          </div>
+          {cvData.phone && (
+            <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+              <FaPhoneAlt className="w-4 h-4 text-gray-500 flex-shrink-0" />
+              <span>{cvData.phone}</span>
+            </div>
+          )}
+          <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <FaLinkedin className="w-4 h-4 text-gray-500 flex-shrink-0" />
             <span>LinkedIn</span>
-          </span>
+          </div>
           {cvData.github && (
-            <span className="flex items-center gap-1">
-              <FaGithub className="w-5 h-5 text-gray-600" />
+            <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+              <FaGithub className="w-4 h-4 text-gray-500 flex-shrink-0" />
               <span>GitHub</span>
-            </span>
+            </div>
           )}
           {cvData.stackoverflow && (
-            <span className="flex items-center gap-1">
-              <FaStackOverflow className="w-5 h-5 text-gray-600" />
+            <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+              <FaStackOverflow className="w-4 h-4 text-gray-500 flex-shrink-0" />
               <span>Stack Overflow</span>
-            </span>
+            </div>
           )}
         </div>
       </header>
 
-      {/* Main Content */}
+      {/* Main Content with improved section styling */}
       <main className="space-y-6">
         {/* Professional Summary */}
-        <section className="mb-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-2 border-b border-gray-200 pb-1">{lang === 'fa' ? 'خلاصه حرفه‌ای' : 'Professional Summary'}</h2>
-          <p className="text-gray-700">
+        <section className={`mb-6 ${isRTL ? 'text-right' : 'text-left'}`}>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4 pb-2 border-b-2 border-gray-200">
+            {isRTL ? 'خلاصه حرفه‌ای' : 'Professional Summary'}
+          </h2>
+          <p className="text-gray-700 leading-relaxed">
             {cvData.summary}
           </p>
         </section>
 
-        {/* Work Experience */}
-        <section className="mb-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-3 border-b border-gray-200 pb-1">{lang === 'fa' ? 'سوابق شغلی' : 'Work Experience'}</h2>
-          {cvData.experience.map((exp, idx) => (
-            <div className="mb-4" key={idx}>
-              <div className="flex justify-between items-baseline">
-                <h3 className="text-lg font-semibold text-gray-800">{exp.title} @ {exp.company}</h3>
-                <p className="text-sm text-gray-600">{exp.start} - {exp.end}</p>
+        {/* Work Experience with improved layout */}
+        <section className={`mb-6 ${isRTL ? 'text-right' : 'text-left'}`}>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4 pb-2 border-b-2 border-gray-200">
+            {isRTL ? 'سوابق شغلی' : 'Work Experience'}
+          </h2>
+          <div className="space-y-4">
+            {cvData.experience.map((exp, idx) => (
+              <div key={idx} className="break-inside-avoid">
+                <div className={`flex ${isRTL ? 'flex-row-reverse' : ''} justify-between items-baseline mb-2`}>
+                  <h3 className="text-xl font-semibold text-gray-800">
+                    {exp.title} @ {exp.company}
+                  </h3>
+                  <p className={`text-sm text-gray-600 whitespace-nowrap ${isRTL ? 'ml-4' : 'mr-4'}`}>
+                    {exp.start} - {exp.end}
+                  </p>
+                </div>
+                <ul className={`list-disc ${isRTL ? 'list-inside' : 'list-inside'} mt-2 space-y-1 text-gray-700 leading-relaxed`}>
+                  <li>{exp.description}</li>
+                </ul>
               </div>
-              <ul className="list-disc list-inside mt-2 space-y-1 text-gray-700">
-                <li>{exp.description}</li>
-              </ul>
-            </div>
-          ))}
+            ))}
+          </div>
         </section>
 
-        {/* Skills */}
-        <section className="mb-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-3 border-b border-gray-200 pb-1">{lang === 'fa' ? 'مهارت‌ها' : 'Skills'}</h2>
-          <div className="grid grid-cols-2 gap-6">
+        {/* Skills with improved grid layout */}
+        <section className={`mb-6 ${isRTL ? 'text-right' : 'text-left'}`}>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4 pb-2 border-b-2 border-gray-200">
+            {isRTL ? 'مهارت‌ها' : 'Skills'}
+          </h2>
+          <div className={`grid ${isRTL ? 'grid-cols-2 gap-x-4' : 'grid-cols-2 gap-x-8'} gap-y-4`}>
             {cvData.skills.map((skill, idx) => (
-              <div key={idx}>
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">{skill.category}</h3>
-                <ul className="list-disc list-inside space-y-1 text-gray-700">
+              <div key={idx} className="break-inside-avoid">
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                  {skill.category}
+                </h3>
+                <ul className={`list-disc ${isRTL ? 'list-inside' : 'list-inside'} space-y-1 text-gray-700`}>
                   {skill.items.map((item, i) => (
-                    <li key={i}>{item}</li>
+                    <li key={i} className="leading-relaxed">{item}</li>
                   ))}
                 </ul>
               </div>
@@ -110,19 +158,29 @@ const PDFResume = forwardRef<HTMLDivElement, { cvData: CVData; lang: 'en' | 'fa'
           </div>
         </section>
 
-        {/* Education */}
-        <section>
-          <h2 className="text-xl font-bold text-gray-900 mb-3 border-b border-gray-200 pb-1">{lang === 'fa' ? 'تحصیلات' : 'Education'}</h2>
-          {cvData.education.map((edu, idx) => (
-            <div key={idx}>
-              <div className="flex justify-between items-baseline">
-                <h3 className="text-lg font-semibold text-gray-800">{edu.degree} {lang === 'fa' ? 'در' : 'in'} {edu.field}</h3>
-                <p className="text-sm text-gray-600">{edu.start} - {edu.end}</p>
+        {/* Education with improved layout */}
+        <section className={isRTL ? 'text-right' : 'text-left'}>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4 pb-2 border-b-2 border-gray-200">
+            {isRTL ? 'تحصیلات' : 'Education'}
+          </h2>
+          <div className="space-y-4">
+            {cvData.education.map((edu, idx) => (
+              <div key={idx} className="break-inside-avoid">
+                <div className={`flex ${isRTL ? 'flex-row-reverse' : ''} justify-between items-baseline mb-2`}>
+                  <h3 className="text-xl font-semibold text-gray-800">
+                    {edu.degree} {isRTL ? 'در' : 'in'} {edu.field}
+                  </h3>
+                  <p className={`text-sm text-gray-600 whitespace-nowrap ${isRTL ? 'ml-4' : 'mr-4'}`}>
+                    {edu.start} - {edu.end}
+                  </p>
+                </div>
+                <p className="text-gray-700">{edu.school}</p>
+                {edu.description && (
+                  <p className="text-gray-700 mt-1 leading-relaxed">{edu.description}</p>
+                )}
               </div>
-              <p className="text-gray-700">{edu.school}</p>
-              {edu.description && <p className="text-gray-700 mt-1">{edu.description}</p>}
-            </div>
-          ))}
+            ))}
+          </div>
         </section>
       </main>
     </div>
