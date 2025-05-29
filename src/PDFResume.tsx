@@ -176,12 +176,17 @@ const PDFResume = forwardRef<HTMLDivElement, { cvData: CVData; lang: 'en' | 'fa'
             {cvData.experience.map((exp, idx) => (
               <div key={idx} className="break-inside-avoid">
                 <div className={`flex ${isRTL ? 'flex-row-reverse' : ''} justify-between items-baseline mb-2`}>
-                  <h3 className="text-xl font-semibold text-gray-800">
-                    {exp.title} @ {exp.company}
-                  </h3>
-                  <p className={`text-sm text-gray-600 whitespace-nowrap ${isRTL ? 'ml-4' : 'mr-4'}`}>
-                    {exp.start} - {exp.end}
-                  </p>
+                  {isRTL ? (
+                    <>
+                      <p className={`text-sm text-gray-600 whitespace-nowrap ${isRTL ? 'ml-4' : 'mr-4'}`}>{exp.start} - {exp.end}</p>
+                      <h3 className="text-xl font-semibold text-gray-800">{exp.title} @ {exp.company}</h3>
+                    </>
+                  ) : (
+                    <>
+                      <h3 className="text-xl font-semibold text-gray-800">{exp.title} @ {exp.company}</h3>
+                      <p className={`text-sm text-gray-600 whitespace-nowrap ${isRTL ? 'ml-4' : 'mr-4'}`}>{exp.start} - {exp.end}</p>
+                    </>
+                  )}
                 </div>
                 <ul
                   className={`mt-2 space-y-1 text-gray-700 leading-relaxed list-none`}
@@ -257,12 +262,17 @@ const PDFResume = forwardRef<HTMLDivElement, { cvData: CVData; lang: 'en' | 'fa'
             {cvData.education.map((edu, idx) => (
               <div key={idx} className="break-inside-avoid">
                 <div className={`flex ${isRTL ? 'flex-row-reverse' : ''} justify-between items-baseline mb-2`}>
-                  <h3 className="text-xl font-semibold text-gray-800">
-                    {edu.degree} {isRTL ? 'در' : 'in'} {edu.field}
-                  </h3>
-                  <p className={`text-sm text-gray-600 whitespace-nowrap ${isRTL ? 'ml-4' : 'mr-4'}`}>
-                    {edu.start} - {edu.end}
-                  </p>
+                  {isRTL ? (
+                    <>
+                      <p className={`text-sm text-gray-600 whitespace-nowrap ${isRTL ? 'ml-4' : 'mr-4'}`}>{edu.start} - {edu.end}</p>
+                      <h3 className="text-xl font-semibold text-gray-800">{edu.degree} {isRTL ? 'در' : 'in'} {edu.field}</h3>
+                    </>
+                  ) : (
+                    <>
+                      <h3 className="text-xl font-semibold text-gray-800">{edu.degree} {isRTL ? 'در' : 'in'} {edu.field}</h3>
+                      <p className={`text-sm text-gray-600 whitespace-nowrap ${isRTL ? 'ml-4' : 'mr-4'}`}>{edu.start} - {edu.end}</p>
+                    </>
+                  )}
                 </div>
                 <p className="text-gray-700">{edu.school}</p>
                 {edu.description && (
