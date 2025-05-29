@@ -69,33 +69,87 @@ const PDFResume = forwardRef<HTMLDivElement, { cvData: CVData; lang: 'en' | 'fa'
         {/* Contact information in a grid layout */}
         <div className={`grid ${isRTL ? 'grid-cols-2 gap-x-4' : 'grid-cols-2 gap-x-8'} gap-y-2 text-sm text-gray-600`}>
           <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
-            <FaMapMarkerAlt className="w-4 h-4 text-gray-500 flex-shrink-0" />
-            <span>{cvData.location}</span>
+            {isRTL ? (
+              <>
+                <span className={isRTL ? 'text-right w-full' : ''} dir={isRTL ? 'rtl' : undefined}>{cvData.location}</span>
+                <FaMapMarkerAlt className="w-4 h-4 text-gray-500 flex-shrink-0" />
+              </>
+            ) : (
+              <>
+                <FaMapMarkerAlt className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                <span>{cvData.location}</span>
+              </>
+            )}
           </div>
           <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
-            <FaEnvelope className="w-4 h-4 text-gray-500 flex-shrink-0" />
-            <span>{cvData.email}</span>
+            {isRTL ? (
+              <>
+                <a href={`mailto:${cvData.email}`} className={isRTL ? 'hover:underline text-right w-full' : 'hover:underline'} style={{ direction: isRTL ? 'rtl' : 'ltr' }} dir={isRTL ? 'rtl' : undefined}>{cvData.email}</a>
+                <FaEnvelope className="w-4 h-4 text-gray-500 flex-shrink-0" />
+              </>
+            ) : (
+              <>
+                <FaEnvelope className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                <a href={`mailto:${cvData.email}`} className="hover:underline" style={{ direction: isRTL ? 'rtl' : 'ltr' }}>{cvData.email}</a>
+              </>
+            )}
           </div>
           {cvData.phone && (
             <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
-              <FaPhoneAlt className="w-4 h-4 text-gray-500 flex-shrink-0" />
-              <span>{cvData.phone}</span>
+              {isRTL ? (
+                <>
+                  <a href={`tel:${cvData.phone}`} className={isRTL ? 'hover:underline text-right w-full' : 'hover:underline'} style={{ direction: isRTL ? 'rtl' : 'ltr' }} dir={isRTL ? 'rtl' : undefined}>{cvData.phone}</a>
+                  <FaPhoneAlt className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                </>
+              ) : (
+                <>
+                  <FaPhoneAlt className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                  <a href={`tel:${cvData.phone}`} className="hover:underline" style={{ direction: isRTL ? 'rtl' : 'ltr' }}>{cvData.phone}</a>
+                </>
+              )}
             </div>
           )}
           <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
-            <FaLinkedin className="w-4 h-4 text-gray-500 flex-shrink-0" />
-            <span>LinkedIn</span>
+            {isRTL ? (
+              <>
+                <a href={cvData.linkedin} target="_blank" rel="noopener noreferrer" className={isRTL ? 'hover:underline text-right w-full' : 'hover:underline'} style={{ direction: isRTL ? 'rtl' : 'ltr' }} dir={isRTL ? 'rtl' : undefined}>LinkedIn</a>
+                <FaLinkedin className="w-4 h-4 text-gray-500 flex-shrink-0" />
+              </>
+            ) : (
+              <>
+                <FaLinkedin className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                <a href={cvData.linkedin} target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ direction: isRTL ? 'rtl' : 'ltr' }}>LinkedIn</a>
+              </>
+            )}
           </div>
           {cvData.github && (
             <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
-              <FaGithub className="w-4 h-4 text-gray-500 flex-shrink-0" />
-              <span>GitHub</span>
+              {isRTL ? (
+                <>
+                  <a href={cvData.github} target="_blank" rel="noopener noreferrer" className={isRTL ? 'hover:underline text-right w-full' : 'hover:underline'} style={{ direction: isRTL ? 'rtl' : 'ltr' }} dir={isRTL ? 'rtl' : undefined}>GitHub</a>
+                  <FaGithub className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                </>
+              ) : (
+                <>
+                  <FaGithub className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                  <a href={cvData.github} target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ direction: isRTL ? 'rtl' : 'ltr' }}>GitHub</a>
+                </>
+              )}
             </div>
           )}
           {cvData.stackoverflow && (
             <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
-              <FaStackOverflow className="w-4 h-4 text-gray-500 flex-shrink-0" />
-              <span>Stack Overflow</span>
+              {isRTL ? (
+                <>
+                  <a href={cvData.stackoverflow} target="_blank" rel="noopener noreferrer" className={isRTL ? 'hover:underline text-right w-full' : 'hover:underline'} style={{ direction: isRTL ? 'rtl' : 'ltr' }} dir={isRTL ? 'rtl' : undefined}>Stack Overflow</a>
+                  <FaStackOverflow className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                </>
+              ) : (
+                <>
+                  <FaStackOverflow className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                  <a href={cvData.stackoverflow} target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ direction: isRTL ? 'rtl' : 'ltr' }}>Stack Overflow</a>
+                </>
+              )}
             </div>
           )}
         </div>
@@ -129,8 +183,12 @@ const PDFResume = forwardRef<HTMLDivElement, { cvData: CVData; lang: 'en' | 'fa'
                     {exp.start} - {exp.end}
                   </p>
                 </div>
-                <ul className={`list-disc ${isRTL ? 'list-inside' : 'list-inside'} mt-2 space-y-1 text-gray-700 leading-relaxed`}>
-                  <li>{exp.description}</li>
+                <ul
+                  className={`list-disc ${isRTL ? 'list-inside text-right' : 'list-inside'} mt-2 space-y-1 text-gray-700 leading-relaxed`}
+                  dir={isRTL ? 'rtl' : 'ltr'}
+                  style={{ textAlign: isRTL ? 'right' : 'left' }}
+                >
+                  <li style={{ direction: isRTL ? 'rtl' : 'ltr', textAlign: isRTL ? 'right' : 'left' }}>{exp.description}</li>
                 </ul>
               </div>
             ))}
@@ -148,9 +206,19 @@ const PDFResume = forwardRef<HTMLDivElement, { cvData: CVData; lang: 'en' | 'fa'
                 <h3 className="text-lg font-semibold text-gray-800 mb-2">
                   {skill.category}
                 </h3>
-                <ul className={`list-disc ${isRTL ? 'list-inside' : 'list-inside'} space-y-1 text-gray-700`}>
+                <ul
+                  className={`list-disc ${isRTL ? 'list-inside text-right' : 'list-inside'} space-y-1 text-gray-700`}
+                  dir={isRTL ? 'rtl' : 'ltr'}
+                  style={{ textAlign: isRTL ? 'right' : 'left' }}
+                >
                   {skill.items.map((item, i) => (
-                    <li key={i} className="leading-relaxed">{item}</li>
+                    <li
+                      key={i}
+                      className={isRTL ? 'leading-relaxed text-right' : 'leading-relaxed'}
+                      style={{ direction: isRTL ? 'rtl' : 'ltr', textAlign: isRTL ? 'right' : 'left' }}
+                    >
+                      {item}
+                    </li>
                   ))}
                 </ul>
               </div>
