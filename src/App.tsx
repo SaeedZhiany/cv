@@ -1,23 +1,28 @@
 import './App.css'
 import { ThemeProvider } from './ThemeContext';
 import { ThemeToggle } from './ThemeToggle';
-import { usePDF } from 'react-to-pdf';
-import PDFResume from './PDFResume';
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
+
+// Dynamically import PDF component
+const PDFResume = lazy(() => import('./PDFResume'));
 
 function App() {
   const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
-  const { toPDF, targetRef } = usePDF({
-    filename: 'resume.pdf',
-    page: { format: 'a4', orientation: 'portrait' },
-  });
 
   const handleDownloadPDF = async () => {
     setIsGeneratingPDF(true);
     // Small delay to ensure the PDF component is rendered
     setTimeout(async () => {
-      await toPDF();
-      setIsGeneratingPDF(false);
+      try {
+        const { usePDF } = await import('react-to-pdf');
+        const { toPDF } = usePDF({
+          filename: 'resume.pdf',
+          page: { format: 'a4', orientation: 'portrait' },
+        });
+        await toPDF();
+      } finally {
+        setIsGeneratingPDF(false);
+      }
     }, 100);
   };
 
@@ -59,9 +64,13 @@ function App() {
         </div>
 
         {/* PDF version - only visible during generation */}
-        <div className={isGeneratingPDF ? 'fixed top-0 left-0 w-full h-full z-50 bg-white' : 'hidden'}>
-          <PDFResume ref={targetRef} />
-        </div>
+        {isGeneratingPDF && (
+          <div className="fixed top-0 left-0 w-full h-full z-50 bg-white">
+            <Suspense fallback={<div className="flex items-center justify-center h-full">Loading PDF...</div>}>
+              <PDFResume />
+            </Suspense>
+          </div>
+        )}
 
         {/* Visible web version */}
         <div className="container mx-auto px-4 py-8 max-w-4xl">
