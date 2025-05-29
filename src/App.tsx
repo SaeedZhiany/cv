@@ -3,12 +3,23 @@ import { ThemeProvider } from './ThemeContext';
 import { ThemeToggle } from './ThemeToggle';
 import { usePDF } from 'react-to-pdf';
 import PDFResume from './PDFResume';
+import { useState } from 'react';
 
 function App() {
+  const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
   const { toPDF, targetRef } = usePDF({
     filename: 'resume.pdf',
     page: { format: 'a4', orientation: 'portrait' },
   });
+
+  const handleDownloadPDF = async () => {
+    setIsGeneratingPDF(true);
+    // Small delay to ensure the PDF component is rendered
+    setTimeout(async () => {
+      await toPDF();
+      setIsGeneratingPDF(false);
+    }, 100);
+  };
 
   return (
     <ThemeProvider>
@@ -17,7 +28,7 @@ function App() {
         <div className="fixed top-4 right-4 flex gap-2 z-50">
           <ThemeToggle />
           <button
-            onClick={() => toPDF()}
+            onClick={handleDownloadPDF}
             className="p-2 rounded-full border-2 border-gray-200 dark:border-gray-700 
                      bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 
                      hover:bg-gray-100 dark:hover:bg-gray-700 
@@ -25,6 +36,7 @@ function App() {
                      focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark
                      flex items-center gap-2"
             aria-label="Download PDF"
+            disabled={isGeneratingPDF}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -40,12 +52,14 @@ function App() {
               <polyline points="7 10 12 15 17 10" />
               <line x1="12" y1="15" x2="12" y2="3" />
             </svg>
-            <span className="hidden sm:inline">Download PDF</span>
+            <span className="hidden sm:inline">
+              {isGeneratingPDF ? 'Generating...' : 'Download PDF'}
+            </span>
           </button>
         </div>
 
-        {/* Hidden PDF version */}
-        <div className="hidden">
+        {/* PDF version - only visible during generation */}
+        <div className={isGeneratingPDF ? 'fixed top-0 left-0 w-full h-full z-50 bg-white' : 'hidden'}>
           <PDFResume ref={targetRef} />
         </div>
 
