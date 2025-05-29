@@ -184,11 +184,25 @@ const PDFResume = forwardRef<HTMLDivElement, { cvData: CVData; lang: 'en' | 'fa'
                   </p>
                 </div>
                 <ul
-                  className={`list-disc ${isRTL ? 'list-inside text-right' : 'list-inside'} mt-2 space-y-1 text-gray-700 leading-relaxed`}
+                  className={`mt-2 space-y-1 text-gray-700 leading-relaxed list-none`}
                   dir={isRTL ? 'rtl' : 'ltr'}
                   style={{ textAlign: isRTL ? 'right' : 'left' }}
                 >
-                  <li style={{ direction: isRTL ? 'rtl' : 'ltr', textAlign: isRTL ? 'right' : 'left' }}>{exp.description}</li>
+                  <li style={{ direction: isRTL ? 'rtl' : 'ltr', textAlign: isRTL ? 'right' : 'left' }}>
+                    <span className={`flex items-start w-full ${isRTL ? 'flex-row-reverse justify-start' : 'flex-row justify-start'}`}>
+                      {isRTL ? (
+                        <>
+                          <span className="flex-1 pr-2">{exp.description}</span>
+                          <span className="inline-block w-4 text-lg text-gray-700">•</span>
+                        </>
+                      ) : (
+                        <>
+                          <span className="inline-block w-4 text-lg text-gray-700">•</span>
+                          <span className="flex-1 pl-2">{exp.description}</span>
+                        </>
+                      )}
+                    </span>
+                  </li>
                 </ul>
               </div>
             ))}
@@ -207,17 +221,25 @@ const PDFResume = forwardRef<HTMLDivElement, { cvData: CVData; lang: 'en' | 'fa'
                   {skill.category}
                 </h3>
                 <ul
-                  className={`list-disc ${isRTL ? 'list-inside text-right' : 'list-inside'} space-y-1 text-gray-700`}
+                  className={`space-y-1 text-gray-700 list-none`}
                   dir={isRTL ? 'rtl' : 'ltr'}
                   style={{ textAlign: isRTL ? 'right' : 'left' }}
                 >
                   {skill.items.map((item, i) => (
-                    <li
-                      key={i}
-                      className={isRTL ? 'leading-relaxed text-right' : 'leading-relaxed'}
-                      style={{ direction: isRTL ? 'rtl' : 'ltr', textAlign: isRTL ? 'right' : 'left' }}
-                    >
-                      {item}
+                    <li key={i} style={{ direction: isRTL ? 'rtl' : 'ltr', textAlign: isRTL ? 'right' : 'left' }}>
+                      <span className={`flex items-start w-full ${isRTL ? 'flex-row-reverse justify-start' : 'flex-row justify-start'}`}>
+                        {isRTL ? (
+                          <>
+                            <span className="flex-1 pr-2">{item}</span>
+                            <span className="inline-block w-4 text-lg text-gray-700">•</span>
+                          </>
+                        ) : (
+                          <>
+                            <span className="inline-block w-4 text-lg text-gray-700">•</span>
+                            <span className="flex-1 pl-2">{item}</span>
+                          </>
+                        )}
+                      </span>
                     </li>
                   ))}
                 </ul>
