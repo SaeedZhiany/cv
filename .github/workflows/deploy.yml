@@ -23,8 +23,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -37,15 +35,22 @@ jobs:
       - name: Build
         run: yarn build
 
-      - name: Configure Git
+      - name: Deploy
         run: |
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "actions@github.com"
-
-      - name: Deploy
-        run: |
-          git remote set-url origin git@github.com:SaeedZhiany/cv.git
-          yarn deploy
+          
+          # Remove dist from .gitignore temporarily
+          sed -i '/dist/d' .gitignore
+          
+          # Add and commit the dist directory
+          git add dist/
+          git commit -m "Deploy built files to main branch"
+          
+          # Push changes
+          git push origin main
+          
+          # Restore .gitignore
+          git checkout .gitignore
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no" 
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
