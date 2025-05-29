@@ -17,6 +17,9 @@ export default {
           dark: '#6366f1',
         },
       },
+      fontFamily: {
+        vazirmatn: ['var(--font-vazirmatn)'],
+      },
     },
   },
   plugins: [],

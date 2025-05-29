@@ -1,11 +1,22 @@
+@import 'vazirmatn/Vazirmatn-font-face.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --font-vazirmatn: 'Vazirmatn', system-ui, -apple-system, sans-serif;
+  }
+
   body {
     @apply bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300;
   }
+}
+
+/* Ensure Persian text uses Vazirmatn */
+[lang="fa"] {
+  font-family: var(--font-vazirmatn);
 }
 
 @layer components {

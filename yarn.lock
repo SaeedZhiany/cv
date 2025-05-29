@@ -2330,6 +2330,11 @@ utrie@^1.0.2:
   dependencies:
     base64-arraybuffer "^1.0.2"
 
+vazirmatn@^33.0.3:
+  version "33.0.3"
+  resolved "https://registry.yarnpkg.com/vazirmatn/-/vazirmatn-33.0.3.tgz#d4617dfb0fa97c6aaeb35ab19fa713f0a04ffc21"
+  integrity sha512-fbjNc0CMjazZpIegWzz9OHGzI1APFboT+x7ZecXlUCtDe/nkyx7gtCTZnWS/+eeXG7fbfXymCPKJI8EsnM3iqw==
+
 vite@^6.3.5:
   version "6.3.5"
   resolved "https://registry.yarnpkg.com/vite/-/vite-6.3.5.tgz#fec73879013c9c0128c8d284504c6d19410d12a3"

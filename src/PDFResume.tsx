@@ -1,10 +1,45 @@
 import { forwardRef } from 'react';
-import cvData from './cv-data.json';
 import { FaLinkedin, FaGithub, FaStackOverflow, FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from 'react-icons/fa';
 
-const PDFResume = forwardRef<HTMLDivElement>((_, ref) => {
+interface Skill {
+  category: string;
+  items: string[];
+}
+interface Experience {
+  title: string;
+  company: string;
+  start: string;
+  end: string;
+  description: string;
+  location: string;
+}
+interface Education {
+  school: string;
+  degree: string;
+  field: string;
+  start: string;
+  end: string;
+  description: string;
+}
+interface CVData {
+  name: string;
+  headline: string;
+  location: string;
+  email: string;
+  phone?: string;
+  linkedin: string;
+  github?: string;
+  stackoverflow?: string;
+  summary: string;
+  experience: Experience[];
+  education: Education[];
+  skills: Skill[];
+}
+
+const PDFResume = forwardRef<HTMLDivElement, { cvData: CVData; lang: 'en' | 'fa' }>((props, ref) => {
+  const { cvData, lang } = props;
   return (
-    <div ref={ref} className="p-8 max-w-[210mm] mx-auto bg-white">
+    <div ref={ref} className="p-8 max-w-[210mm] mx-auto bg-white" dir={lang === 'fa' ? 'rtl' : 'ltr'}>
       {/* Header */}
       <header className="text-center mb-8 border-b border-gray-200 pb-6">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">{cvData.name}</h1>
@@ -36,7 +71,7 @@ const PDFResume = forwardRef<HTMLDivElement>((_, ref) => {
       <main className="space-y-6">
         {/* Professional Summary */}
         <section className="mb-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-2 border-b border-gray-200 pb-1">Professional Summary</h2>
+          <h2 className="text-xl font-bold text-gray-900 mb-2 border-b border-gray-200 pb-1">{lang === 'fa' ? 'خلاصه حرفه‌ای' : 'Professional Summary'}</h2>
           <p className="text-gray-700">
             {cvData.summary}
           </p>
@@ -44,7 +79,7 @@ const PDFResume = forwardRef<HTMLDivElement>((_, ref) => {
 
         {/* Work Experience */}
         <section className="mb-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-3 border-b border-gray-200 pb-1">Work Experience</h2>
+          <h2 className="text-xl font-bold text-gray-900 mb-3 border-b border-gray-200 pb-1">{lang === 'fa' ? 'سوابق شغلی' : 'Work Experience'}</h2>
           {cvData.experience.map((exp, idx) => (
             <div className="mb-4" key={idx}>
               <div className="flex justify-between items-baseline">
@@ -60,7 +95,7 @@ const PDFResume = forwardRef<HTMLDivElement>((_, ref) => {
 
         {/* Skills */}
         <section className="mb-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-3 border-b border-gray-200 pb-1">Skills</h2>
+          <h2 className="text-xl font-bold text-gray-900 mb-3 border-b border-gray-200 pb-1">{lang === 'fa' ? 'مهارت‌ها' : 'Skills'}</h2>
           <div className="grid grid-cols-2 gap-6">
             {cvData.skills.map((skill, idx) => (
               <div key={idx}>
@@ -77,11 +112,11 @@ const PDFResume = forwardRef<HTMLDivElement>((_, ref) => {
 
         {/* Education */}
         <section>
-          <h2 className="text-xl font-bold text-gray-900 mb-3 border-b border-gray-200 pb-1">Education</h2>
+          <h2 className="text-xl font-bold text-gray-900 mb-3 border-b border-gray-200 pb-1">{lang === 'fa' ? 'تحصیلات' : 'Education'}</h2>
           {cvData.education.map((edu, idx) => (
             <div key={idx}>
               <div className="flex justify-between items-baseline">
-                <h3 className="text-lg font-semibold text-gray-800">{edu.degree} in {edu.field}</h3>
+                <h3 className="text-lg font-semibold text-gray-800">{edu.degree} {lang === 'fa' ? 'در' : 'in'} {edu.field}</h3>
                 <p className="text-sm text-gray-600">{edu.start} - {edu.end}</p>
               </div>
               <p className="text-gray-700">{edu.school}</p>
