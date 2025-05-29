@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -39,6 +41,12 @@ jobs:
         run: |
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "actions@github.com"
-          yarn deploy
+          
+          # Configure git to use SSH
+          git remote set-url origin git@github.com:SaeedZhiany/cv.git
+          
+          # Deploy using gh-pages
+          GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no" yarn deploy
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no" 

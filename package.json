@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "yarn build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist --dotfiles --message 'Deploy to GitHub Pages' --repo git@github.com:SaeedZhiany/cv.git"
   },
   "dependencies": {
     "react": "^19.1.0",
